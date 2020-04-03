@@ -120,42 +120,46 @@ admins = ['1155353251','341206540','858478034','10314936','1000130937','21117022
 import urllib.request as url
 import re
 import datetime
-def scan():
-    print('Scanning influencers...')
-    for i in range(len(influencers)):
-        status = 'null'
-        page = "https://api.roblox.com/users/"+str(influencers[i])+"/onlinestatus"
-        html = url.urlopen(page)
-        html = str(html.read())
-        if '"IsOnline":true,"LastLocation":"Playing' in html:
-            if status != 'creating':
+def scan(prioritize):
+    if 'i' in prioritize:
+        print('Scanning influencers...')
+        for i in range(len(influencers)):
+            status = 'null'
+            page = "https://api.roblox.com/users/"+str(influencers[i])+"/onlinestatus"
+            html = url.urlopen(page)
+            html = str(html.read())
+            if '"IsOnline":true,"LastLocation":"Playing' in html:
+                if status != 'creating':
+                    status = 'creating'
+                print(str(influencers[i])+" is playing! (influencer) " + str(datetime.datetime.time(datetime.datetime.now())))
+                print("https://www.roblox.com/users/"+str(influencers[i])+"/profile\n")
                 status = 'creating'
-            print(str(influencers[i])+" is playing! (influencer) " + str(datetime.datetime.time(datetime.datetime.now())))
-            print("https://www.roblox.com/users/"+str(influencers[i])+"/profile\n")
-            status = 'creating'
-    print('Scanning devs...')
-    for i in range(len(devs)):
-        status = 'null'
-        page = "https://api.roblox.com/users/"+str(devs[i])+"/onlinestatus"
-        html = url.urlopen(page)
-        html = str(html.read())
-        if '"IsOnline":true,"LastLocation":"Playing' in html:
-            if status != 'creating':
+    if 'd' in prioritize:
+        print('Scanning devs...')
+        for i in range(len(devs)):
+            status = 'null'
+            page = "https://api.roblox.com/users/"+str(devs[i])+"/onlinestatus"
+            html = url.urlopen(page)
+            html = str(html.read())
+            if '"IsOnline":true,"LastLocation":"Playing' in html:
+                if status != 'creating':
+                    status = 'creating'
+                print(str(devs[i])+" is playing! (developer) " + str(datetime.datetime.time(datetime.datetime.now())))
+                print("https://www.roblox.com/users/"+str(devs[i])+"/profile\n")
                 status = 'creating'
-            print(str(devs[i])+" is playing! (developer) " + str(datetime.datetime.time(datetime.datetime.now())))
-            print("https://www.roblox.com/users/"+str(devs[i])+"/profile\n")
-            status = 'creating'
-    print('Scanning admins...')
-    for i in range(len(admins)):
-        status = 'null'
-        page = "https://api.roblox.com/users/"+str(admins[i])+"/onlinestatus"
-        html = url.urlopen(page)
-        html = str(html.read())
-        if '"IsOnline":true,"LastLocation":"Playing' in html:
-            if status != 'creating':
+    if 'a' in prioritize:
+        print('Scanning admins...')
+        for i in range(len(admins)):
+            status = 'null'
+            page = "https://api.roblox.com/users/"+str(admins[i])+"/onlinestatus"
+            html = url.urlopen(page)
+            html = str(html.read())
+            if '"IsOnline":true,"LastLocation":"Playing' in html:
+                if status != 'creating':
+                    status = 'creating'
+                print(str(admins[i])+" is playing! (admin) " + str(datetime.datetime.time(datetime.datetime.now())))
+                print("https://www.roblox.com/users/"+str(admins[i])+"/profile\n")
                 status = 'creating'
-            print(str(admins[i])+" is playing! (admin) " + str(datetime.datetime.time(datetime.datetime.now())))
-            print("https://www.roblox.com/users/"+str(admins[i])+"/profile\n")
-            status = 'creating'
+prioritize = input("who do you want to scan for? d=dev; a=admin; i=influencer ")
 while True:
-    scan()
+    scan(prioritize)
